@@ -1,0 +1,78 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #FFF0F0;
+    display: flex;
+    
+    height: 100vh; /* ให้ body ขยายเต็มความสูงของ viewport */
+    margin: 0;
+}
+
+.main-content {
+    padding-left: 8px; /* เพิ่มพื้นที่ภายในทางด้านซ้าย */
+    
+    flex-direction: column;
+
+}
+
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FFB8B8;
+    padding: 10px 20px;
+    border-bottom: 2px solid #bdc3c7;
+}
+
+header h1 {
+    margin: 0;
+}
+
+.actions {
+    display: flex;
+}
+
+.actions .btn {
+    background-color: #53a6dc;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin-left: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.actions .btn:hover {
+    background-color: #2980b9;
+}
+
+.content {
+    padding: 20px;
+    flex: 1; /* ให้ content ขยายเต็มพื้นที่ที่เหลือ */
+    display: flex;
+    flex-direction: column;
+    overflow: auto; /* ให้สามารถเลื่อนได้หากเนื้อหาเกินขนาด */
+}
+
+.table-container {
+    overflow-x: auto;
+    margin-bottom: 20px;
+    width: 100%; /* ให้ table-container ขยายเต็มความกว้างของ content */
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #bdc3c7;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

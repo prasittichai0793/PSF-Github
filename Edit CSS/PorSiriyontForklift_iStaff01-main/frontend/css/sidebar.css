@@ -1,0 +1,130 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #FFFFFF;
+}
+
+.container {
+    display: flex;
+    height: 10h;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #FFB8B8;
+    color: white;
+    padding: 15px;
+    overflow-y: auto;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    margin: 15px 0;
+}
+
+.sidebar ul li a {
+    color: rgb(157, 0, 0);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar ul li a i {
+    margin-right: 10px;
+}
+
+.dropdown {
+    display: none;
+    background-color: #FFF0F0;
+    padding-left: 30px;
+}
+
+.dropdown a {
+    color: #bdc3c7;
+    padding: 10px 0;
+    display: block;
+    padding-left: 10px;
+}
+
+.dropdown a:hover {
+    color: rgb(0, 0, 0);
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+    margin-left: 250px; /* Adjust to sidebar width */
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ecf0f1;
+    padding: 10px 20px;
+    border-bottom: 2px solid #bdc3c7;
+}
+
+header h1 {
+    margin: 0;
+}
+
+.actions {
+    display: flex;
+}
+
+.actions .btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin-left: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.actions .btn:hover {
+    background-color: #2980b9;
+}
+
+.content {
+    padding: 20px;
+}
+
+.content-block {
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.content-block h2 {
+    margin-top: 0;
+}
+
+.btn-add-block {
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn-add-block:hover {
+    background-color: #27ae60;
+}
+
+.arrow {
+    margin-left: auto;
+}

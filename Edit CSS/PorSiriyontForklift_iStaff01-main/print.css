@@ -1,0 +1,36 @@
+@media print {
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        width: 210mm; /* A4 width */
+        height: 297mm; /* A4 height */
+        overflow: hidden;
+    }
+    .container {
+        width: 100%;
+        padding: 20mm;
+    }
+    .main-content {
+        width: 100%;
+    }
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 0;
+    }
+    .table th, .table td {
+        border: 1px solid #000;
+        padding: 5px;
+        text-align: left;
+    }
+    /* Hide buttons during print */
+    .actions, .btn {
+        display: none;
+    }
+    /* Center the company name and date at the top */
+    .header-print {
+        text-align: center;
+        margin-bottom: 10mm;
+    }
+}
