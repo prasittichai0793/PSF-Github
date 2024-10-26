@@ -207,7 +207,7 @@ $user_data = mysqli_fetch_assoc($result);
                 <div>
                     <p><span class="info-label2">เวลาปัจจุบัน</span></p>
                     <div id="current-time">00:00:00</div>
-                    <h2>ข้อมูลส่วนตัว</h2>
+                    <h2>บันทึกเวลาเข้างาน</h2>
                     <div class="profile-info">
                         <p><span class="info-label">รหัสพนักงาน:</span> <?php echo $user_data['user_no']; ?></p>
                         <p><span class="info-label">ชื่อ-นามสกุล:</span> <?php echo $user_data['user_name']; ?></p>

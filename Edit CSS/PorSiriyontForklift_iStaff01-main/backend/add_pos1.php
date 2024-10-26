@@ -119,7 +119,6 @@
         });
     </script>
 </head>
-
 <body>
     <div class="container">
         <div class="main-content">
@@ -154,6 +153,7 @@
                         <label for="user_Date">วัน/เดือน/ปี เกิด:</label>
                         <input type="date" id="user_Date" name="user_Date" required>
                     </div>
+                    
                     <div class="form-group">
                         <label for="user_age">อายุ:</label>
                         <input type="text" id="user_age" name="user_age" readonly>
@@ -188,6 +188,7 @@
                     $user_username = $_POST['user_username'];
                     $user_password = $_POST['user_password'];
                     $user_gender = $_POST['user_gender'];
+                    $user_age = $_POST['user_age'];  
 
                     $db = new class_conn();
                     $conn = $db->connect();

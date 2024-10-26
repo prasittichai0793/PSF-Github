@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 20, 2024 at 06:56 AM
+-- Generation Time: Oct 24, 2024 at 11:17 AM
 -- Server version: 8.0.17
 -- PHP Version: 7.3.10
 
@@ -37,6 +37,13 @@ CREATE TABLE `tb_admin` (
   `position_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `tb_admin`
+--
+
+INSERT INTO `tb_admin` (`admin_id`, `admin_no`, `admin_name`, `admin_username`, `admin_password`, `position_id`) VALUES
+(2, 'G_001', 'admin', 'admin', '123', 7);
+
 -- --------------------------------------------------------
 
 --
@@ -63,9 +70,18 @@ CREATE TABLE `tb_documents` (
   `docs_type` varchar(45) DEFAULT NULL,
   `docs_files` text,
   `docs_date` datetime DEFAULT NULL,
-  `hr_id` int(11) NOT NULL,
+  `hr_id` int(11) DEFAULT NULL,
   `docs_status` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tb_documents`
+--
+
+INSERT INTO `tb_documents` (`docs_id`, `user_id`, `docs_type`, `docs_files`, `docs_date`, `hr_id`, `docs_status`) VALUES
+(1, 1, 'เปลี่ยน ที่อยู่', 'A_001_20241022_235931.png', '2024-10-22 23:59:31', 2, 'อนุมัติ'),
+(2, 1, 'เปลี่ยน ชื่อ/นามสกุล', 'A_001_20241023_000225.png', '2024-10-23 00:02:25', 2, 'อนุมัติ'),
+(3, 1, 'เปลี่ยน ชื่อ/นามสกุล', 'A_001_20241023_001115.png', '2024-10-23 00:11:15', 2, 'ไม่อนุมัติ');
 
 -- --------------------------------------------------------
 
@@ -109,11 +125,26 @@ CREATE TABLE `tb_personalleave` (
   `PLeave_dateStart` date DEFAULT NULL,
   `PLeave_dateEnd` date DEFAULT NULL,
   `PLeave_detail` text,
-  `PLeave_docs` text,
+  `PLeave_docs` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `PLeave_date` datetime DEFAULT NULL,
-  `hr_id` int(11) NOT NULL,
+  `hr_id` int(11) DEFAULT NULL,
   `PLeave_status` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tb_personalleave`
+--
+
+INSERT INTO `tb_personalleave` (`PLeave_id`, `user_id`, `PLeave_dateStart`, `PLeave_dateEnd`, `PLeave_detail`, `PLeave_docs`, `PLeave_date`, `hr_id`, `PLeave_status`) VALUES
+(38, 1, '2567-10-09', '2567-10-24', 'หฟกหฟกหฟกฟหก', 'A_001_20241020_161228.png', '2024-10-20 00:00:00', 2, 'อนุมัติ'),
+(39, 1, '2567-10-09', '2567-10-30', 'หฟกฟหกฟหกฟหก', 'Screenshot 2023-12-20 092429.png', '2024-10-20 00:00:00', 2, 'ไม่อนุมัติ'),
+(40, 1, '2567-10-01', '2567-10-07', 'หฟกหฟกหฟก', 'A_001_20241020_161711.png', '2024-10-20 00:00:00', 2, 'ไม่อนุมัติ'),
+(41, 1, '2567-10-02', '2567-10-22', 'ฟหกหฟกฟหกฟหก', 'A_001_20241020_161919.png', '2024-10-20 00:00:00', 2, 'อนุมัติ'),
+(42, 1, '2567-10-09', '2567-10-24', 'หฟกหฟกฟหก', 'A_001_20241020_162348.png', '2024-10-20 00:00:00', 2, 'ไม่อนุมัติ'),
+(43, 1, '2567-10-01', '2567-10-14', 'หกดฟหก', 'A_001_20241022_200258.png', '2024-10-22 20:02:58', 3, 'อนุมัติ'),
+(44, 1, '2567-10-01', '2567-10-24', 'sadsadasdasd', 'A_001_20241022_205618.png', '2024-10-22 20:56:18', 3, 'อนุมัติ'),
+(45, 1, '2567-10-08', '2567-10-17', 'sdfsdfsdfdsfsdf', 'A_001_20241022_205633.png', '2024-10-22 20:56:33', 3, 'ไม่อนุมัติ'),
+(46, 1, '2567-10-08', '2567-10-11', 'มมมม', NULL, '2024-10-23 22:49:47', 2, 'อนุมัติ');
 
 -- --------------------------------------------------------
 
@@ -152,11 +183,23 @@ CREATE TABLE `tb_resign` (
   `resign_logdate` datetime DEFAULT NULL,
   `resign_detail` text,
   `resign_docs` text,
-  `resign_date` datetime DEFAULT NULL,
-  `hr_id` int(11) NOT NULL,
-  `admin_id` int(11) NOT NULL,
+  `resign_date` date DEFAULT NULL,
+  `hr_id` int(11) DEFAULT NULL,
+  `admin_id` int(11) DEFAULT NULL,
   `resign_status` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tb_resign`
+--
+
+INSERT INTO `tb_resign` (`resign_id`, `user_id`, `resign_logdate`, `resign_detail`, `resign_docs`, `resign_date`, `hr_id`, `admin_id`, `resign_status`) VALUES
+(30, 1, '2567-10-07 21:49:19', 'ewfwef', NULL, '2567-10-22', 2, 2, 'อนุมัติ'),
+(31, 1, '2567-10-23 21:49:24', 'dfwefewf', NULL, '2567-11-07', 2, 2, 'ไม่อนุมัติ'),
+(32, 1, '2567-10-07 21:49:29', 'wefwefwef', NULL, '2567-10-22', 2, 2, 'อนุมัติ'),
+(33, 1, '2567-10-13 21:49:34', 'ewfwefewfwef', NULL, '2567-10-28', 2, 2, 'อนุมัติ'),
+(34, 1, '2567-10-08 22:14:59', 'asdasdasdasd', NULL, '2567-10-23', NULL, 2, 'ไม่อนุมัติ'),
+(35, 1, '2567-10-01 22:15:04', 'sadasdasd', NULL, '2567-10-16', NULL, 2, 'อนุมัติ');
 
 -- --------------------------------------------------------
 
@@ -189,7 +232,7 @@ CREATE TABLE `tb_user` (
   `user_idNumber` int(11) DEFAULT NULL,
   `user_phoneNumber` varchar(11) DEFAULT NULL,
   `user_Date` date DEFAULT NULL,
-  `user_age` int(11) DEFAULT NULL,
+  `user_age` varchar(255) DEFAULT NULL,
   `user_day` varchar(45) DEFAULT NULL,
   `user_username` varchar(45) DEFAULT NULL,
   `user_password` varchar(45) DEFAULT NULL,
@@ -202,12 +245,18 @@ CREATE TABLE `tb_user` (
 --
 
 INSERT INTO `tb_user` (`user_id`, `user_no`, `user_name`, `user_startDate`, `user_exp`, `user_idNumber`, `user_phoneNumber`, `user_Date`, `user_age`, `user_day`, `user_username`, `user_password`, `user_gender`, `position_id`) VALUES
-(1, 'A_001', 'user', '2020-11-21', '3 ปี 10 เดือน 12 วัน', 2147483647, '871164552', '1989-07-13', 35, '100 วัน', 'user', '123', 'female', 1),
-(3, 'A_002', 'นายอภิศักดิ์ น้าวัฒนไพบูลย์', '2022-02-02', '2 ปี 8 เดือน 9 วัน', 2147483647, '451515515', '2021-07-06', 3, '69 วัน', 'a_aphisak', 'a12345678', 'ชาย', 1),
-(5, 'B_001', 'นายสมประสงค์ แจ้งกระจ่าง', '2008-05-07', '16 ปี 4 เดือน 27 วัน', 124525245, '868324178', '1964-01-13', 60, '427 วัน', 'b_somprasong', '01131964', 'ชาย', 2),
-(8, 'D_005', 'sdf', '2024-06-12', '0 ปี 3 เดือน 29 วัน', 2147483647, '0872164298', '2024-04-13', 0, '8 วัน', 'f', 'f', 'ชาย', 4),
-(12, 'A_008', 'หปฟ', '2019-01-29', '5 ปี 8 เดือน 19 วัน', 2147483647, '0872164298', '2019-06-11', 5, '148 วัน', 'lllll', 'สาสส', 'ชาย', 1),
-(13, 'A_009', 'สสส', '2018-06-04', '6 ปี 4 เดือน 14 วัน', 2147483647, '0814879788', '2024-07-11', 0, '166', 'pp', 'สวสว', 'male', 1);
+(1, 'A_001', 'user', '2020-11-21', '3 ปี 10 เดือน 12 วัน', 2147483647, '871164552', '1989-07-13', '35', '88', 'user', '123', 'female', 1),
+(3, 'A_002', 'นายอภิศักดิ์ น้าวัฒนไพบูลย์', '2022-02-02', '2 ปี 8 เดือน 9 วัน', 2147483647, '451515515', '2021-07-06', '3', '69 วัน', 'a_aphisak', 'a12345678', 'ชาย', 1),
+(5, 'B_001', 'นายสมประสงค์ แจ้งกระจ่าง', '2008-05-07', '16 ปี 4 เดือน 27 วัน', 124525245, '868324178', '1964-01-13', '60', '427 วัน', 'b_somprasong', '01131964', 'ชาย', 2),
+(8, 'D_005', 'sdf', '2024-06-12', '0 ปี 3 เดือน 29 วัน', 2147483647, '0872164298', '2024-04-13', '0', '8 วัน', 'f', 'f', 'ชาย', 4),
+(12, 'A_008', 'หปฟ', '2019-01-29', '5 ปี 8 เดือน 19 วัน', 2147483647, '0872164298', '2019-06-11', '5', '148 วัน', 'lllll', 'สาสส', 'ชาย', 1),
+(13, 'A_009', 'สสส', '2018-06-04', '6 ปี 4 เดือน 14 วัน', 2147483647, '0814879788', '2024-07-11', '0', '166', 'pp', 'สวสว', 'male', 1),
+(16, 'A_010', 'sdfdsfsdfsdf', '2024-03-13', '0 ปี 7 เดือน 11 วัน', 2147483647, '9809808908', '1984-07-11', '0', '15 วัน', 'yy', 'yy', 'male', 1),
+(17, 'A_011', 'sddsfdsf', '2024-10-03', '0 ปี 0 เดือน 21 วัน', 2147483647, '0872164298', '1965-04-02', '0', '1 วัน', 'dfsd', 'sdffsdf', 'male', 1),
+(18, 'B_012', 'dsfsdf', '2024-10-03', '0 ปี 0 เดือน 21 วัน', 2147483647, '8987987980', '1955-04-01', '0', '1', 'iu', 'oui', 'male', 2),
+(19, 'B_012', 'zx', '2023-03-01', '1 ปี 7 เดือน 23 วัน', 2147483647, '0872164298', '1996-04-04', '', '42', 'c', 'c', 'male', 2),
+(20, 'A_012', 'หฟกฟห', '2023-07-06', '1 ปี 3 เดือน 18 วัน', 2147483647, '0872164298', '1995-03-30', '29 ปี 6 เดือน 24 วัน', '33 วัน', 'er', 'wer', 'male', 1),
+(21, 'A_013', 'กก', '2022-11-23', '1 ปี 11 เดือน 1 วัน', 2147483647, '1231231231', '0000-00-00', '0 ปี 0 เดือน 8 วัน', '49 วัน', '3', '3', 'female', 1);
 
 -- --------------------------------------------------------
 
@@ -223,9 +272,20 @@ CREATE TABLE `tb_vacationleave` (
   `VLeave_detail` text,
   `VLeave_docs` text,
   `VLeave_date` datetime DEFAULT NULL,
-  `hr_id` int(11) NOT NULL,
+  `hr_id` int(11) DEFAULT NULL,
   `VLeave_status` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tb_vacationleave`
+--
+
+INSERT INTO `tb_vacationleave` (`VLeave_id`, `user_id`, `VLeave_dateStart`, `VLeave_dateEnd`, `VLeave_detail`, `VLeave_docs`, `VLeave_date`, `hr_id`, `VLeave_status`) VALUES
+(9, 1, '2567-10-09', '2567-10-10', 'werwerwer', 'A_001_20241022_124348.png', '2024-10-22 12:43:48', 2, 'ไม่อนุมัติ'),
+(10, 1, '2567-10-02', '2567-10-07', 'หฟกฟหกฟกหก', 'A_001_20241022_194538.png', '2024-10-22 19:45:38', 3, 'อนุมัติ'),
+(11, 1, '2567-10-08', '2567-10-22', 'sdadasdasd', NULL, '2024-10-22 23:22:17', NULL, 'กำลังดำเนินการ'),
+(12, 1, '2567-10-08', '2567-10-10', 'asdasdasdsadasd', NULL, '2024-10-24 17:02:06', 2, 'อนุมัติ'),
+(13, 1, '2567-10-25', '2567-10-26', 'sdfsdfdsfdsf', NULL, '2024-10-24 17:04:10', 2, 'อนุมัติ');
 
 --
 -- Indexes for dumped tables
@@ -314,13 +374,13 @@ ALTER TABLE `tb_vacationleave`
 -- AUTO_INCREMENT for table `tb_admin`
 --
 ALTER TABLE `tb_admin`
-  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tb_documents`
 --
 ALTER TABLE `tb_documents`
-  MODIFY `docs_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `docs_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tb_hr`
@@ -332,7 +392,7 @@ ALTER TABLE `tb_hr`
 -- AUTO_INCREMENT for table `tb_personalleave`
 --
 ALTER TABLE `tb_personalleave`
-  MODIFY `PLeave_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `PLeave_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `tb_position`
@@ -344,7 +404,7 @@ ALTER TABLE `tb_position`
 -- AUTO_INCREMENT for table `tb_resign`
 --
 ALTER TABLE `tb_resign`
-  MODIFY `resign_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `resign_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `tb_timelog`
@@ -356,13 +416,13 @@ ALTER TABLE `tb_timelog`
 -- AUTO_INCREMENT for table `tb_user`
 --
 ALTER TABLE `tb_user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `tb_vacationleave`
 --
 ALTER TABLE `tb_vacationleave`
-  MODIFY `VLeave_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `VLeave_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Constraints for dumped tables

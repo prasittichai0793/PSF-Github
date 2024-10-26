@@ -9,209 +9,7 @@
     <link rel="icon" href="../images/Logo_PSF_BG_White_Favicon.png" type="image/x-icon">
     <?php include '../class_conn.php'; ?>
     <?php include 'sidebar.php'; ?>
-    <style>
-        body {
-            margin: 0;
-            font-family: Verdana, sans-serif;
-            background-color: #FFDEDE;
-        }
-
-        .display-container {
-            position: fixed;
-            top: 20px;
-            left: 270px;
-            right: 20px;
-            bottom: 20px;
-            display: flex;
-            flex-direction: column;
-            transition: left 0.3s ease;
-        }
-
-        .tool-for-table-container {
-            background-color: #FFB8B8;
-            padding: 0px 10px;
-            height: 70px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .tool-for-table-container span {
-            padding: 0px 20px;
-            font-size: 30px;
-        }
-
-        .button-tool-for-table-container a,
-        .button-tool-for-table-container button {
-            background-color: #3498db;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            margin-left: 10px;
-            cursor: pointer;
-            border-radius: 5px;
-            text-decoration: none;
-        }
-
-        .free-space {
-            width: 100%;
-            height: 20px;
-            background-color: #FFDEDE;
-        }
-
-        .table-container {
-            overflow: hidden;
-            background-color: #ffcece;
-            flex-grow: 1;
-            height: auto;
-            padding: 10px;
-            box-sizing: border-box;
-        }
-
-        .table-container-inner {
-            overflow-y: auto;
-            height: 100%;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th,
-        td {
-            padding: 10px 20px;
-            text-align: left;
-            white-space: nowrap;
-            position: relative;
-        }
-
-        th {
-            background-color: #FFB8B8;
-            color: white;
-        }
-
-        thead {
-            position: sticky;
-            top: 0;
-            z-index: 1;
-            background-color: #FFB8B8;
-        }
-
-        tbody tr:nth-child(odd) {
-            background-color: #FFDEDE;
-        }
-
-        tbody tr:nth-child(even) {
-            background-color: #ffcece;
-        }
-
-        td::before,
-        th::before {
-            content: '';
-            position: absolute;
-            right: 0;
-            top: 50%;
-            width: 1px;
-            height: 80%;
-            background-color: black;
-            transform: translateY(-50%);
-        }
-
-        td:last-child::before,
-        th:last-child::before {
-            display: none;
-        }
-
-        ::-webkit-scrollbar {
-            width: 10px;
-            height: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background-color: #888;
-            border: 2px solid #f1f1f1;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background-color: #555;
-        }
-
-        ::-webkit-scrollbar-horizontal {
-            height: 12px;
-        }
-
-        ::-webkit-scrollbar-track-horizontal {
-            background: #f1f1f1;
-        }
-
-        ::-webkit-scrollbar-thumb-horizontal {
-            background-color: #888;
-            border-radius: 10px;
-            border: 2px solid #f1f1f1;
-        }
-
-        @media screen and (max-width: 930px) {
-            .display-container {
-                position: fixed;
-                background-color: #ff00bf;
-                top: 10px;
-                left: 70px;
-                right: 10px;
-                bottom: 10px;
-                display: flex;
-                flex-direction: column;
-            }
-
-            .tool-for-table-container {
-                background-color: #FFB8B8;
-                padding: 0px 10px;
-                height: 50px;
-                display: flex;
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
-            }
-
-            .button-tool-for-table-container {
-                margin-left: auto;
-                display: flex;
-                align-items: center;
-            }
-
-            .tool-for-table-container span {
-                padding: 0px 15px;
-                font-size: 20px;
-            }
-
-            .button-tool-for-table-container a,
-            .button-tool-for-table-container button {
-                background-color: #3498db;
-                color: white;
-                border: none;
-                padding: 10px 15px;
-                margin-left: 10px;
-                font-size: 12px;
-                cursor: pointer;
-                border-radius: 5px;
-                text-decoration: none;
-            }
-
-            .table-container {
-                overflow: hidden;
-                background-color: #ffcece;
-                flex-grow: 1;
-                height: auto;
-                padding: 10px;
-                box-sizing: border-box;
-                font-size: 14px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="css/container-table.css">
 </head>
 
 <body>
@@ -219,7 +17,7 @@
         <div class="tool-for-table-container">
             <span>แผนกadmin</span>
             <div class="button-tool-for-table-container">
-                <a href="add_pos4.php" class="btn btn-add"><i class="fa fa-plus"></i> เพิ่มพนักงาน</a>
+                <a href="add_pos7.php" class="btn btn-add"><i class="fa fa-plus"></i> เพิ่มพนักงาน</a>
                 <button class="btn btn-save" onclick="printPage()"><i class="fa fa-save"></i> พิมพ์</button>
             </div>
         </div>
@@ -267,8 +65,8 @@
                                 <td>{$row['admin_password']}</td>
                                 <td>{$row['position_id']}</td>
                                 <td>
-                                    <a href='edit_pos7.php?id={$row['admin_id']}'>แก้ไข</a>
-                                    <a href='delete_pos7.php?admin_no=" . $row['admin_no'] . "' class='btn btn-delete' onclick='return confirm(\"คุณต้องการลบข้อมูลพนักงานนี้หรือไม่?\")'>ลบ</a>
+                                    <a href='edit_pos7.php?id={$row['admin_id']}'class='btn btn-edit'><i class='fa fa-edit'></i>แก้ไข</a>
+                                    <a href='delete_pos7.php?admin_no=" . $row['admin_no'] . "' class='btn btn-delete' onclick='return confirm(\"คุณต้องการลบข้อมูลพนักงานนี้หรือไม่?\")'><i class='fa fa-trash'></i>ลบ</a>
                                 </td>
                             </tr>";
                             }

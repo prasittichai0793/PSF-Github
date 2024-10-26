@@ -183,6 +183,7 @@
                     $hr_username = $_POST['hr_username'];
                     $hr_password = $_POST['hr_password'];
                     $hr_gender = $_POST['hr_gender'];
+                    $hr_age = $_POST['hr_age']; 
 
                     $db = new class_conn();
                     $conn = $db->connect();

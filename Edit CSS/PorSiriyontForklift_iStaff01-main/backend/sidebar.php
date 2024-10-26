@@ -33,23 +33,23 @@
                     </a>
                 </li>
                 <li>
-                    <a href="show_position.php" class="dropdown-toggle">
+                    <a href="show_personalleave.php" class="dropdown-toggle">
                         <span><i class="fa fa-calendar-times"></i> แจ้งลากิจ</span>
                     </a>
                 </li>
                 <li>
-                    <a href="show_position.php" class="dropdown-toggle">
+                    <a href="show_vacationleave.php" class="dropdown-toggle">
                         <span><i class="fa fa-umbrella-beach"></i> แจ้งลาพักร้อน</span>
                     </a>
                 </li>
                 <li>
-    <a href="show_resign.php" class="dropdown-toggle">
-        <span><i class="fa fa-user-slash"></i> แจ้งลาออก</span>
-    </a>
-</li>
+                    <a href="show_resign.php" class="dropdown-toggle">
+                        <span><i class="fa fa-user-slash"></i> แจ้งลาออก</span>
+                    </a>
+                </li>
 
                 <li>
-                    <a href="show_position.php" class="dropdown-toggle">
+                    <a href="show_documents.php" class="dropdown-toggle">
                         <span><i class="fa fa-file-upload"></i> แจ้งยื่นเอกสาร</span>
                     </a>
                 </li>

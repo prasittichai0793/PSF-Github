@@ -187,6 +187,7 @@
                     $user_username = $_POST['user_username'];
                     $user_password = $_POST['user_password'];
                     $user_gender = $_POST['user_gender'];
+                    $user_age = $_POST['user_age']; 
 
                     $db = new class_conn();
                     $conn = $db->connect();

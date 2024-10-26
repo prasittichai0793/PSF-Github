@@ -11,11 +11,13 @@ if (!isset($_SESSION['username']) || $_SESSION['user_type'] !== 'user') {
 $conn = new class_conn();
 $connection = $conn->connect();
 
-// ดึงข้อมูลผู้ใช้จากฐานข้อมูล
+// ดึงข้อมูลผู้ใช้จากฐานข้อมูลพร้อมชื่อตำแหน่ง
 $username = $_SESSION['username'];
-$query = "SELECT user_no, user_name, user_age, user_startDate, user_day, position_id 
-          FROM tb_user 
-          WHERE user_username = ?";
+$query = "SELECT u.user_no, u.user_name, u.user_age, u.user_startDate, u.user_day, 
+          p.position_name 
+          FROM tb_user u
+          LEFT JOIN tb_position p ON u.position_id = p.position_id
+          WHERE u.user_username = ?";
 
 $stmt = mysqli_prepare($connection, $query);
 mysqli_stmt_bind_param($stmt, "s", $username);
@@ -196,9 +198,6 @@ $user_data = mysqli_fetch_assoc($result);
 </head>
 <body>
     <div class="profile-container">
-        <div class="profile-image">
-            <img src="../images/user_profile.jpg" alt="Profile Image" style="width: 150px; height: 150px; object-fit: cover;">
-        </div>
         <div class="profile-details">
             <h2>ข้อมูลส่วนตัว</h2>
             <div class="profile-info">
@@ -207,7 +206,7 @@ $user_data = mysqli_fetch_assoc($result);
                 <p><span class="info-label">อายุ:</span> <?php echo $user_data['user_age']; ?> ปี</p>
                 <p><span class="info-label">วันที่เริ่มงาน:</span> <?php echo date('d/m/Y', strtotime($user_data['user_startDate'])); ?></p>
                 <p><span class="info-label">วันลา:</span> <?php echo $user_data['user_day']; ?></p>
-                <p><span class="info-label">รหัสตำแหน่ง:</span> <?php echo $user_data['position_id']; ?></p>
+                <p><span class="info-label">ตำแหน่ง:</span> <?php echo $user_data['position_name']; ?></p>
             </div>
         </div>
     </div>
@@ -244,7 +243,7 @@ $user_data = mysqli_fetch_assoc($result);
             // แปลงเวลาปัจจุบันเป็นวินาที
             const currentTimeInSeconds = (hours * 3600) + (minutes * 60) + Number(seconds);
             // แปลงเวลา 12:55:00 เป็นวินาที
-            const targetTimeInSeconds = (13 * 3600) + (50 * 60);
+            const targetTimeInSeconds = (17 * 3600) + (00 * 60);
 
             if (currentTimeInSeconds >= targetTimeInSeconds) {
                 logoutButton.classList.remove('disabled');

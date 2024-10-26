@@ -29,13 +29,18 @@
                     </a>
                 </li>
                 <li>
-                    <a href="show_position.php" class="dropdown-toggle">
+                    <a href="vacationleave.php" class="dropdown-toggle">
                         <span><i class="fa fa-umbrella-beach"></i> ลาพักร้อน</span>
                     </a>
                 </li>
                 <li>
-                    <a href="show_resign.php" class="dropdown-toggle">
+                    <a href="resign.php" class="dropdown-toggle">
                         <span><i class="fa fa-user-slash"></i> ลาออก</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="documents.php" class="dropdown-toggle">
+                        <span><i class="fa fa-user-slash"></i> ยื่นเอกสารเพิ่มเติม</span>
                     </a>
                 </li>
                 <li>
