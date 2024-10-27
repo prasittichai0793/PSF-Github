@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 24, 2024 at 11:17 AM
+-- Generation Time: Oct 26, 2024 at 10:52 PM
 -- Server version: 8.0.17
 -- PHP Version: 7.3.10
 
@@ -58,6 +58,14 @@ CREATE TABLE `tb_data` (
   `data_name` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `tb_data`
+--
+
+INSERT INTO `tb_data` (`data_id`, `user_id`, `user_no`, `data_macAddress`, `data_name`) VALUES
+(1, 1, 'A_001', 'fe80::ca78:33d8:4903:e854%17', 'suthada'),
+(2, 22, 'F_001', '38-D5-7A-12-71-B1', 'LAPTOP-UUE2562O');
+
 -- --------------------------------------------------------
 
 --
@@ -111,7 +119,10 @@ CREATE TABLE `tb_hr` (
 
 INSERT INTO `tb_hr` (`hr_id`, `hr_no`, `hr_name`, `hr_startDate`, `hr_exp`, `hr_idNumber`, `hr_phoneNumber`, `hr_Date`, `hr_age`, `hr_gender`, `hr_username`, `hr_password`, `position_id`) VALUES
 (2, 'E_001', 'hr', '2017-11-22', '0000-00-00', 2147483647, '202020202', '2001-05-07', 23, 'female', 'hr', '123', 5),
-(3, 'E_001', 'r', '2024-09-06', '0 ปี 1 เดือน 5 วัน', 2147483647, '909009786', '2024-07-19', 0, 'male', 'g', 'g', 1);
+(3, 'E_001', 'r', '2024-09-06', '0 ปี 1 เดือน 5 วัน', 2147483647, '909009786', '2024-07-19', 0, 'male', 'g', 'g', 1),
+(4, 'E_001', 'นางสาวสุธาดา เสนามงคล', '2023-06-14', '1 ปี 4 เดือน 11 วัน', 2147483647, '0872164298', '2003-02-21', 21, 'female', 'e_suthada', '123', 5),
+(5, 'E_001', 'ewr', '2024-10-08', '0 ปี 0 เดือน 17 วัน', 2147483647, '5000005615', '2024-10-08', 0, 'male', 'f', 'f', 5),
+(6, 'E_002', 'sadsadsad', '2024-10-01', '0 ปี 0 เดือน 24 วัน', 2147483647, '0025202155', '2024-07-04', 0, 'male', 'r', 'r', 5);
 
 -- --------------------------------------------------------
 
@@ -144,7 +155,8 @@ INSERT INTO `tb_personalleave` (`PLeave_id`, `user_id`, `PLeave_dateStart`, `PLe
 (43, 1, '2567-10-01', '2567-10-14', 'หกดฟหก', 'A_001_20241022_200258.png', '2024-10-22 20:02:58', 3, 'อนุมัติ'),
 (44, 1, '2567-10-01', '2567-10-24', 'sadsadasdasd', 'A_001_20241022_205618.png', '2024-10-22 20:56:18', 3, 'อนุมัติ'),
 (45, 1, '2567-10-08', '2567-10-17', 'sdfsdfsdfdsfsdf', 'A_001_20241022_205633.png', '2024-10-22 20:56:33', 3, 'ไม่อนุมัติ'),
-(46, 1, '2567-10-08', '2567-10-11', 'มมมม', NULL, '2024-10-23 22:49:47', 2, 'อนุมัติ');
+(46, 1, '2567-10-08', '2567-10-11', 'มมมม', NULL, '2024-10-23 22:49:47', 2, 'อนุมัติ'),
+(47, 1, '2567-10-08', '2567-10-11', 'sdcscs', 'A_001_20241027_003116.png', '2024-10-27 00:31:16', NULL, 'กำลังดำเนินการ');
 
 -- --------------------------------------------------------
 
@@ -211,11 +223,19 @@ CREATE TABLE `tb_timelog` (
   `timelog_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `timelog_date` date DEFAULT NULL,
-  `timelog_in` datetime DEFAULT NULL,
-  `timelog_out` datetime DEFAULT NULL,
+  `timelog_in` varchar(45) DEFAULT NULL,
+  `timelog_out` varchar(45) DEFAULT NULL,
   `data_id` int(11) NOT NULL,
   `timelog_status` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tb_timelog`
+--
+
+INSERT INTO `tb_timelog` (`timelog_id`, `user_id`, `timelog_date`, `timelog_in`, `timelog_out`, `data_id`, `timelog_status`) VALUES
+(21, 1, '2024-10-27', '04:20:35', NULL, 1, 'เข้างาน'),
+(22, 22, '2024-10-27', '05:06:59', '2024-10-27 05:47:19', 2, 'ออกงานแล้ว');
 
 -- --------------------------------------------------------
 
@@ -253,10 +273,8 @@ INSERT INTO `tb_user` (`user_id`, `user_no`, `user_name`, `user_startDate`, `use
 (13, 'A_009', 'สสส', '2018-06-04', '6 ปี 4 เดือน 14 วัน', 2147483647, '0814879788', '2024-07-11', '0', '166', 'pp', 'สวสว', 'male', 1),
 (16, 'A_010', 'sdfdsfsdfsdf', '2024-03-13', '0 ปี 7 เดือน 11 วัน', 2147483647, '9809808908', '1984-07-11', '0', '15 วัน', 'yy', 'yy', 'male', 1),
 (17, 'A_011', 'sddsfdsf', '2024-10-03', '0 ปี 0 เดือน 21 วัน', 2147483647, '0872164298', '1965-04-02', '0', '1 วัน', 'dfsd', 'sdffsdf', 'male', 1),
-(18, 'B_012', 'dsfsdf', '2024-10-03', '0 ปี 0 เดือน 21 วัน', 2147483647, '8987987980', '1955-04-01', '0', '1', 'iu', 'oui', 'male', 2),
-(19, 'B_012', 'zx', '2023-03-01', '1 ปี 7 เดือน 23 วัน', 2147483647, '0872164298', '1996-04-04', '', '42', 'c', 'c', 'male', 2),
-(20, 'A_012', 'หฟกฟห', '2023-07-06', '1 ปี 3 เดือน 18 วัน', 2147483647, '0872164298', '1995-03-30', '29 ปี 6 เดือน 24 วัน', '33 วัน', 'er', 'wer', 'male', 1),
-(21, 'A_013', 'กก', '2022-11-23', '1 ปี 11 เดือน 1 วัน', 2147483647, '1231231231', '0000-00-00', '0 ปี 0 เดือน 8 วัน', '49 วัน', '3', '3', 'female', 1);
+(20, 'A_012', 'ssss', '2023-07-06', '1 ปี 3 เดือน 20 วัน', 2147483647, '0872164298', '1995-03-30', '29 ปี 6 เดือน 26 วัน', '33 วัน', 'er', 'wer', 'ชาย', 1),
+(22, 'F_001', 'นางสาวสุธาดา เสนามงคล', '2024-02-13', '0 ปี 8 เดือน 13 วัน', 2147483647, '0872164298', '2003-02-21', '21 ปี 8 เดือน 6 วัน', '18', 'f_suthada', '123', 'female', 6);
 
 -- --------------------------------------------------------
 
@@ -386,13 +404,13 @@ ALTER TABLE `tb_documents`
 -- AUTO_INCREMENT for table `tb_hr`
 --
 ALTER TABLE `tb_hr`
-  MODIFY `hr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `hr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tb_personalleave`
 --
 ALTER TABLE `tb_personalleave`
-  MODIFY `PLeave_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `PLeave_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `tb_position`
@@ -410,13 +428,13 @@ ALTER TABLE `tb_resign`
 -- AUTO_INCREMENT for table `tb_timelog`
 --
 ALTER TABLE `tb_timelog`
-  MODIFY `timelog_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `timelog_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `tb_user`
 --
 ALTER TABLE `tb_user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `tb_vacationleave`

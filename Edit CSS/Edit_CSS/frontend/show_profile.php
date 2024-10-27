@@ -328,17 +328,17 @@ $user_data = mysqli_fetch_assoc($result);
             const minutes = String(now.getMinutes()).padStart(2, '0');
             const seconds = String(now.getSeconds()).padStart(2, '0');
             const currentTimeStr = `${hours}:${minutes}:${seconds}`;
-
+            
             document.getElementById('current-time').textContent = currentTimeStr;
 
             // ตรวจสอบเวลาสำหรับปุ่มออกงาน
             const logoutButton = document.getElementById('logoutButton');
             const timeStatus = document.getElementById('timeStatus');
-
+            
             // แปลงเวลาปัจจุบันเป็นวินาที
             const currentTimeInSeconds = (hours * 3600) + (minutes * 60) + Number(seconds);
             // แปลงเวลา 12:55:00 เป็นวินาที
-            const targetTimeInSeconds = (17 * 3600) + (00 * 60);
+            const targetTimeInSeconds = (17 * 3600) + (15 * 60);
 
             if (currentTimeInSeconds >= targetTimeInSeconds) {
                 logoutButton.classList.remove('disabled');
@@ -350,7 +350,7 @@ $user_data = mysqli_fetch_assoc($result);
                 const remainingHours = Math.floor(remainingSeconds / 3600);
                 const remainingMinutes = Math.floor((remainingSeconds % 3600) / 60);
                 const remainingSecs = remainingSeconds % 60;
-
+                
                 timeStatus.textContent = `สามารถบันทึกเวลาออกงานได้ในอีก ${String(remainingHours).padStart(2, '0')}:${String(remainingMinutes).padStart(2, '0')}:${String(remainingSecs).padStart(2, '0')}`;
                 timeStatus.style.color = '#ff4444';
             }

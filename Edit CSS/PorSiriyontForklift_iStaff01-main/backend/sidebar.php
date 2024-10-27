@@ -54,8 +54,13 @@
                     </a>
                 </li>
                 <li>
-                    <a href="show_position.php" class="dropdown-toggle">
+                    <a href="show_timelog.php" class="dropdown-toggle">
                         <span><i class="fa fa-user-clock"></i> บันทึกเวลาเข้า-ออก</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="show_data.php" class="dropdown-toggle">
+                        <span><i class="fa fa-user-clock"></i> Data</span>
                     </a>
                 </li>
                 <li>

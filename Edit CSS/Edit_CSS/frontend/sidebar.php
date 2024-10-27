@@ -19,7 +19,7 @@
         </div>
 
         <div class="side-profile">
-            <img src="../images/Logo_PSF_BG_White_Favicon.png" alt="Profile Picture" class="profile-picture">
+            <!-- <img src="../images/Logo_PSF_BG_White_Favicon.png" alt="Profile Picture" class="profile-picture"> -->
             <!-- <span class="profile-name">User Name</span> -->
             <span class="profile-name">
                 <?php

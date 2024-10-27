@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A_เพิ่มข้อมูลพนักงานขับรถเครน</title>
+    <title>F_เพิ่มข้อมูลพนักงานแม่บ้าน</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <style>
         /* add_all.css */
@@ -193,7 +193,7 @@
                     $conn = $db->connect();
 
                     // ดึง user_no ล่าสุด
-                    $sql_last_no = "SELECT user_no FROM tb_user WHERE user_no LIKE 'A_%' ORDER BY user_no DESC LIMIT 6";
+                    $sql_last_no = "SELECT user_no FROM tb_user WHERE user_no LIKE 'F_%' ORDER BY user_no DESC LIMIT 6";
                     $result = $conn->query($sql_last_no);
 
                     if ($result->num_rows > 0) {

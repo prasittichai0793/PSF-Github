@@ -354,45 +354,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <script>
         $(document).ready(function () {
+            // Set up datepicker
             $.fn.datepicker.defaults.format = "dd/mm/yyyy";
             $.fn.datepicker.defaults.autoclose = true;
 
-            $('#start_date_right').on('change', function () {
-                const selectedDate = $(this).val();
-                $('#start_date_left').val(selectedDate);
-
-                // Convert date format for hidden input
-                const dateParts = selectedDate.split('/');
-                const formattedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
-                $('#selected_start_date').val(formattedDate);
-
-                // Calculate end date (15 days from start date)
-                const startDate = new Date(dateParts[2], dateParts[1] - 1, dateParts[0]);
-                const endDate = new Date(startDate);
-                endDate.setDate(startDate.getDate() + 15);
-
-                // Format end date for display
-                const endDateFormatted = endDate.getDate().toString().padStart(2, '0') + '/' +
-                    (endDate.getMonth() + 1).toString().padStart(2, '0') + '/' +
-                    endDate.getFullYear();
-                $('#end_date_left').val(endDateFormatted);
-
-                // Format end date for hidden input
-                const formattedEndDate = `${endDate.getFullYear()}-${(endDate.getMonth() + 1).toString().padStart(2, '0')}-${endDate.getDate().toString().padStart(2, '0')}`;
-                $('<input>').attr({
-                    type: 'hidden',
-                    name: 'selected_end_date',
-                    value: formattedEndDate
-                }).appendTo('#leaveForm');
-            });
-
-            // Form validation
+            // Handle form submission
             $('#leaveForm').on('submit', function (e) {
-                if (!$('#start_date_right').val()) {
+                const docsType = $('#docs_type').val();
+                if (!docsType) {
                     e.preventDefault();
-                    alert('กรุณาเลือกวันที่เริ่มต้น');
+                    alert('กรุณาเลือกประเภทเอกสาร');
                     return false;
                 }
+
+                // Additional validation can be done here
             });
         });
     </script>

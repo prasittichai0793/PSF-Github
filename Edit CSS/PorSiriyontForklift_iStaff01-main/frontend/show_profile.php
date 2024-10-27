@@ -243,7 +243,7 @@ $user_data = mysqli_fetch_assoc($result);
             // แปลงเวลาปัจจุบันเป็นวินาที
             const currentTimeInSeconds = (hours * 3600) + (minutes * 60) + Number(seconds);
             // แปลงเวลา 12:55:00 เป็นวินาที
-            const targetTimeInSeconds = (17 * 3600) + (00 * 60);
+            const targetTimeInSeconds = (21 * 3600) + (10 * 60);
 
             if (currentTimeInSeconds >= targetTimeInSeconds) {
                 logoutButton.classList.remove('disabled');

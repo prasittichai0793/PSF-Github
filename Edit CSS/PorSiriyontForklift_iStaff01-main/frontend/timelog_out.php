@@ -11,19 +11,64 @@ if (!isset($_SESSION['username']) || $_SESSION['user_type'] !== 'user') {
 $conn = new class_conn();
 $connection = $conn->connect();
 
-// ดึงข้อมูลผู้ใช้จากฐานข้อมูล
 $username = $_SESSION['username'];
-$query = "SELECT user_no, user_name, position_id 
-          FROM tb_user 
-          WHERE user_username = ?";
 
+// ดึงข้อมูลผู้ใช้จากฐานข้อมูล
+$query = "SELECT user_id, user_no, user_name, position_id FROM tb_user WHERE user_username = ?";
 $stmt = mysqli_prepare($connection, $query);
 mysqli_stmt_bind_param($stmt, "s", $username);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 $user_data = mysqli_fetch_assoc($result);
-?>
+$user_id = $user_data['user_id'];
 
+// ตรวจสอบว่าได้ออกงานไปแล้วหรือไม่ - แก้ไข query ให้ใช้ DATE(NOW())
+$check_logout_query = "SELECT timelog_status FROM tb_timelog 
+                      WHERE user_id = ? 
+                      AND DATE(NOW()) = CURDATE() 
+                      AND timelog_status = 'ออกงานแล้ว'";
+$stmt_check = mysqli_prepare($connection, $check_logout_query);
+mysqli_stmt_bind_param($stmt_check, "s", $user_id);
+mysqli_stmt_execute($stmt_check);
+$check_result = mysqli_stmt_get_result($stmt_check);
+$already_logged = mysqli_num_rows($check_result) > 0;
+
+// ตัวแปรสำหรับข้อความข้อผิดพลาด
+$error_message = "";
+
+// ตรวจสอบว่ามีข้อมูลจาก POST หรือไม่
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && !$already_logged) {
+    // ดึง data_id ตาม user_id จาก tb_data
+    $data_query = "SELECT data_id FROM tb_data WHERE user_id = ?";
+    $stmt_data = mysqli_prepare($connection, $data_query);
+    mysqli_stmt_bind_param($stmt_data, "s", $user_id);
+    mysqli_stmt_execute($stmt_data);
+    $data_result = mysqli_stmt_get_result($stmt_data);
+    
+    if (mysqli_num_rows($data_result) > 0) {
+        $data_row = mysqli_fetch_assoc($data_result);
+        $data_id = $data_row['data_id'];
+
+        // อัปเดตเฉพาะเวลาออกงาน โดยใช้ TIME(NOW())
+        $query_update = "UPDATE tb_timelog 
+                        SET timelog_date = CURDATE(), 
+                            timelog_out = TIME(NOW()), 
+                            timelog_status = 'ออกงานแล้ว' 
+                        WHERE user_id = ? AND data_id = ?";
+        $stmt_update = mysqli_prepare($connection, $query_update);
+        mysqli_stmt_bind_param($stmt_update, "ss", $user_id, $data_id);
+
+        if (mysqli_stmt_execute($stmt_update)) {
+            header("Location: show_profile.php?success=1");
+            exit();
+        } else {
+            $error_message = mysqli_error($connection);
+        }
+    } else {
+        $error_message = "ไม่พบ data_id สำหรับ user_id นี้";
+    }
+}
+?>
 <?php include 'sidebar.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,19 +79,6 @@ $user_data = mysqli_fetch_assoc($result);
     <title>ข้อมูลส่วนตัว</title>
     <style>
         .profile-container {
-            display: flex;
-            align-items: flex-start;
-            background-color: #FFDEDE;
-            padding: 20px;
-            border-radius: 20px;
-            max-width: 800px;
-            margin: 30px auto;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .profile-container2 {
-            display: flex;
-            align-items: flex-start;
             background-color: #FFDEDE;
             padding: 20px;
             border-radius: 20px;
@@ -54,6 +86,14 @@ $user_data = mysqli_fetch_assoc($result);
             margin: 40px auto;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
+        .profile-container2 {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
 
         .profile-image {
             border-radius: 20px;
@@ -197,28 +237,66 @@ $user_data = mysqli_fetch_assoc($result);
             color: #666;
             margin-top: 5px;
         }
+        .warning {
+            color: #ff4444;
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        
+        .confirm-button {
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+            margin: 0 10px;
+        }
+        
+        .confirm-no {
+            background-color: #6c757d;
+        }
+        
+        .confirm-no:hover {
+            background-color: #5a6268;
+        }
     </style>
 </head>
 
 <body>
-    <div class="profile-container2">
+    <div class="profile-container">
         <div class="timelog_in">
             <div class="timelog_in-info">
-                <div>
-                    <p><span class="info-label2">เวลาปัจจุบัน</span></p>
-                    <div id="current-time">00:00:00</div>
-                    <h2>ข้อมูลส่วนตัว</h2>
-                    <div class="profile-info">
-                        <p><span class="info-label">รหัสพนักงาน:</span> <?php echo $user_data['user_no']; ?></p>
-                        <p><span class="info-label">ชื่อ-นามสกุล:</span> <?php echo $user_data['user_name']; ?></p>
-                        <p><span class="info-label">วันที่ทำการ:</span> <span id="current-date"></span></p>
-                        <p><span class="info-label">รหัสตำแหน่ง:</span> <?php echo $user_data['position_id']; ?></p>
+                <h2>ข้อมูลส่วนตัว</h2>
+                <div class="profile-info">
+                    <p><span class="info-label">รหัสพนักงาน:</span> <?php echo $user_data['user_no']; ?></p>
+                    <p><span class="info-label">ชื่อ-นามสกุล:</span> <?php echo $user_data['user_name']; ?></p>
+                    <p><span class="info-label">วันที่ทำการ:</span> <span id="current-date"></span></p>
+                    <p><span class="info-label">รหัสตำแหน่ง:</span> <?php echo $user_data['position_id']; ?></p>
+                </div>
+                
+                <?php if ($already_logged): ?>
+                    <div class="warning">คุณได้บันทึกเวลาออกงานของวันนี้ไปแล้ว</div>
+                    <div class="button-container">
+                        <a href="show_profile.php" class="confirm-button confirm-no">กลับ</a>
                     </div>
+                <?php else: ?>
                     <div class="time-button-container">
-                    <a href="timelog_out.php" id="logoutButton" class="time-log-button time-log-out disabled">บันทึกเวลาออกงาน</a>
+                        <form action="" method="POST">
+                            <button type="submit" id="logoutButton" class="time-log-button time-log-out disabled">บันทึกเวลาออกงาน</button>
+                        </form>
                     </div>
                     <div id="timeStatus" class="time-status"></div>
-                </div>
+                <?php endif; ?>
+
+                <?php if (!empty($error_message)): ?>
+                    <p style="color: red;"><?php echo $error_message; ?></p>
+                <?php endif; ?>
             </div>
         </div>
     </div>
@@ -231,15 +309,14 @@ $user_data = mysqli_fetch_assoc($result);
             const seconds = String(now.getSeconds()).padStart(2, '0');
             const currentTimeStr = `${hours}:${minutes}:${seconds}`;
 
-            document.getElementById('current-time').textContent = currentTimeStr;
+            // แปลงเวลาปัจจุบันเป็นวินาที
+            const currentTimeInSeconds = (parseInt(hours) * 3600) + (parseInt(minutes) * 60) + parseInt(seconds);
+            const targetTimeInSeconds = (21 * 3600) + (10 * 60); // 5:15 AM
+
+            <?php if (!$already_logged): ?>
             // ตรวจสอบเวลาสำหรับปุ่มออกงาน
             const logoutButton = document.getElementById('logoutButton');
             const timeStatus = document.getElementById('timeStatus');
-            
-            // แปลงเวลาปัจจุบันเป็นวินาที
-            const currentTimeInSeconds = (hours * 3600) + (minutes * 60) + Number(seconds);
-            // แปลงเวลา 12:55:00 เป็นวินาที
-            const targetTimeInSeconds = (12 * 3600) + (55 * 60);
 
             if (currentTimeInSeconds >= targetTimeInSeconds) {
                 logoutButton.classList.remove('disabled');
@@ -251,10 +328,11 @@ $user_data = mysqli_fetch_assoc($result);
                 const remainingHours = Math.floor(remainingSeconds / 3600);
                 const remainingMinutes = Math.floor((remainingSeconds % 3600) / 60);
                 const remainingSecs = remainingSeconds % 60;
-                
+
                 timeStatus.textContent = `สามารถบันทึกเวลาออกงานได้ในอีก ${String(remainingHours).padStart(2, '0')}:${String(remainingMinutes).padStart(2, '0')}:${String(remainingSecs).padStart(2, '0')}`;
                 timeStatus.style.color = '#ff4444';
             }
+            <?php endif; ?>
         }
 
         // อัพเดทเวลาทุกๆ 1 วินาที
@@ -264,7 +342,7 @@ $user_data = mysqli_fetch_assoc($result);
         function updateDate() {
             const now = new Date();
             const day = String(now.getDate()).padStart(2, '0');
-            const month = String(now.getMonth() + 1).padStart(2, '0'); // เดือนเริ่มจาก 0, ต้อง +1
+            const month = String(now.getMonth() + 1).padStart(2, '0');
             const year = now.getFullYear();
 
             const currentDateStr = `${day}/${month}/${year}`;
@@ -273,8 +351,6 @@ $user_data = mysqli_fetch_assoc($result);
 
         // เรียกฟังก์ชันเพื่ออัพเดทวันที่เมื่อโหลดหน้าเว็บ
         updateDate();
-
     </script>
 </body>
-
 </html>

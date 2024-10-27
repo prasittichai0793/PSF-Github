@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
     <script src="JavaScript/calculate.js"></script>
-    <script src="JavaScript/cancelForm.js"></script>
 
     <?php include '../class_conn.php'; ?>
     <?php include 'calender.php'; ?>
@@ -128,7 +127,8 @@
                             <label class="info-label">เริ่มวันที่:</label>
                             <input class="input-medium" type="text" id="user_startDate" name="user_startDate"
                                 data-provide="datepicker" data-date-language="th-th" autocomplete="off"
-                                onchange="calculateExperienceUserStartDate()">
+                                onchange="calculateExperienceUserStartDate()" onkeydown="return false;"
+                                onpaste="return false;">
                         </div>
 
                         <div class="form-group user_exp">
@@ -161,7 +161,8 @@
                             <label class="info-label">วัน/เดือน/ปี เกิด:</label>
                             <input class="input-medium" type="text" id="user_birthDate" name="user_birthDate"
                                 data-provide="datepicker" data-date-language="th-th" autocomplete="off"
-                                onchange="calculateExperienceUserBirthDate()">
+                                onchange="calculateExperienceUserBirthDate()" onkeydown="return false;"
+                                onpaste="return false;">
                         </div>
 
                         <div class="form-group user_exp">
@@ -189,8 +190,7 @@
                         </div>
 
                         <button type="submit" class="btn btn-save"><i class="fa fa-save"></i> บันทึก</button>
-                        <button type="button" class="btn btn-cancel" onclick="cancelForm()"><i
-                                class="fas fa-times"></i>ยกเลิก</button>
+                        <button type="button" class="btn btn-cancel" onclick="location.href='show_position1.php'"><i class="fas fa-times"></i>ยกเลิก</button>
                     </form>
                 </div>
             </div>
@@ -208,6 +208,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user_exp = $_POST['user_exp']; // รับค่า user_exp จากฟอร์ม
     $user_idNumber = $_POST['user_idNumber']; // รับค่า user_idNumber จากฟอร์ม
     $user_phoneNumber = $_POST['user_phoneNumber']; // รับค่า user_phoneNumber จากฟอร์ม
+    $user_birthDate = $_POST['user_birthDate']; // รับค่า user_birthDate จากฟอร์ม
     $user_age = $_POST['user_age']; // รับค่า user_age จากฟอร์ม
     $user_leaveDays = $_POST['user_leaveDays']; // รับค่า user_leaveDays จากฟอร์ม
     $user_username = $_POST['user_username']; // รับค่า user_username จากฟอร์ม
@@ -229,7 +230,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // แปลงวันที่จาก พ.ศ. เป็น ค.ศ. สำหรับอายุ
-    $date_parts = explode('/', $user_startDate);
+    $date_parts = explode('/', $user_birthDate);
     if (count($date_parts) == 3) {
         // สมมติว่า $date_parts[0] = วัน, $date_parts[1] = เดือน, $date_parts[2] = ปี
         $day = intval($date_parts[0]);

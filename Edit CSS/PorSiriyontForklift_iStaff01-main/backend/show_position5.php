@@ -77,7 +77,7 @@
                                 <td>{$row['position_id']}</td>
                                 <td>
                                     <a href='edit_pos5.php?id={$row['hr_id']}'>แก้ไข</a>
-                                    <a href='delete_pos.php?hr_no=" . $row['hr_no'] . "' class='btn btn-delete' onclick='return confirm(\"คุณต้องการลบข้อมูลพนักงานนี้หรือไม่?\")'>ลบ</a>
+                                    <a href='delete_pos.php?hr_id=" . $row['hr_id'] . "' class='btn btn-delete' onclick='return confirm(\"คุณต้องการลบข้อมูลพนักงานนี้หรือไม่?\")'>ลบ</a>
                                 </td>
                                 </td>
                                 

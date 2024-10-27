@@ -19,7 +19,7 @@
         </div>
 
         <div class="side-profile">
-            <img src="../images/Logo_PSF_BG_White_Favicon.png" alt="Profile Picture" class="profile-picture">
+            <!-- <img src="../images/Logo_PSF_BG_White_Favicon.png" alt="Profile Picture" class="profile-picture"> -->
             <!-- <span class="profile-name">User Name</span> -->
             <span class="profile-name">
                 <?php
@@ -92,9 +92,13 @@
                 <i class="fa fa-file-upload button-icon-content"></i>
                 <button>แจ้งยื่นเอกสาร</button>
             </div>
-            <div class="content-button">
+            <div class="content-button" onclick="location.href='show_timelog.php'">
                 <i class="fa fa-user-clock button-icon-content"></i>
                 <button>บันทึกเวลาเข้า-ออก</button>
+            </div>
+            <div class="content-button" onclick="location.href='show_data.php'">
+                <i class="fa fa-database button-icon-content"></i>
+                <button>Data</button>
             </div>
         </div>
 

@@ -74,7 +74,6 @@ body {
 }
 
 .profile-name {
-    margin-left: 10px;
     font-size: 16px;
     font-weight: bold;
     color: #9d0000;
@@ -227,7 +226,6 @@ body {
     }
 
     .side-header button,
-    .profile-name,
     .content-button-for-dropdown button,
     .button-in-dropdown button,
     .content-button button,
